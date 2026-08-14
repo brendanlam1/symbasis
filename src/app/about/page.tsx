@@ -42,10 +42,10 @@ export default function AboutPage() {
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-30"
+          className="object-cover opacity-70 object-[40%_40%]"
         />
         <div className="absolute inset-0 bg-radial-glow" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/20" />
         <Container className="relative flex flex-col gap-6 py-24 sm:py-28">
           <span className="w-fit rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted">
             About Symbasis
