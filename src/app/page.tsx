@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
@@ -47,8 +48,18 @@ const principles = [
 export default function Home() {
   return (
     <>
-      <section className="relative overflow-hidden bg-radial-glow">
-        <Container className="flex flex-col items-start gap-8 py-28 sm:py-36">
+      <section className="relative overflow-hidden">
+        <Image
+          src="/images/earth-network.jpg"
+          alt="Earth at night seen from orbit, city lights forming a connected network across the globe"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-radial-glow" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+        <Container className="relative flex flex-col items-start gap-8 py-28 sm:py-36">
           <span className="rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted">
             Full-service marketing agency
           </span>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 
@@ -34,8 +35,18 @@ const beliefs = [
 export default function AboutPage() {
   return (
     <>
-      <section className="border-b border-border bg-radial-glow">
-        <Container className="flex flex-col gap-6 py-24 sm:py-28">
+      <section className="relative overflow-hidden border-b border-border">
+        <Image
+          src="/images/mountain-summit.jpg"
+          alt="Snow-capped mountain peak lit by sunset light"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-radial-glow" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+        <Container className="relative flex flex-col gap-6 py-24 sm:py-28">
           <span className="w-fit rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted">
             About Symbasis
           </span>

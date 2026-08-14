@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/Container";
 import { ContactForm } from "@/components/ContactForm";
 
@@ -35,6 +36,16 @@ export default function ContactPage() {
               <p className="font-semibold text-foreground">Based in</p>
               <p>Sydney, Australia</p>
             </div>
+          </div>
+
+          <div className="border-gradient relative mt-10 aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl">
+            <Image
+              src="/images/tokyo-skyline.jpg"
+              alt="Tokyo skyline at golden hour, viewed from above"
+              fill
+              sizes="(min-width: 1024px) 24rem, 100vw"
+              className="object-cover"
+            />
           </div>
         </div>
 
