@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #06050c;
-  --background-elevated: #0d0b18;
-  --foreground: #f5f4ff;
-  --muted: #a29dbd;
-  --border: rgba(245, 244, 255, 0.1);
-  --teal: #2dd9c8;
-  --teal-light: #7ff0e3;
-  --violet: #a855f7;
-  --violet-light: #d3aefc;
+  --background: #fdfaf4;
+  --background-elevated: #ffffff;
+  --foreground: #2b2117;
+  --muted: #6e5f4f;
+  --border: rgba(43, 33, 24, 0.12);
+  --coral: #ef6f4c;
+  --coral-light: #f9a583;
+  --gold: #eda63c;
+  --gold-light: #f6cb7a;
+  --on-accent: #fffbf3;
 }
 
 @theme inline {
@@ -18,16 +19,16 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
-  --color-teal: var(--teal);
-  --color-teal-light: var(--teal-light);
-  --color-violet: var(--violet);
-  --color-violet-light: var(--violet-light);
+  --color-coral: var(--coral);
+  --color-coral-light: var(--coral-light);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -36,8 +37,8 @@ body {
 }
 
 ::selection {
-  background: var(--violet);
-  color: var(--background);
+  background: var(--coral);
+  color: var(--on-accent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -52,25 +53,25 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(120deg, var(--teal) 0%, var(--violet) 100%);
+  background: linear-gradient(120deg, var(--coral) 0%, var(--gold) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .bg-gradient-brand {
-  background: linear-gradient(120deg, var(--teal) 0%, var(--violet) 100%);
+  background: linear-gradient(120deg, var(--coral) 0%, var(--gold) 100%);
 }
 
 .bg-radial-glow {
   background: radial-gradient(
-      60% 50% at 20% 0%,
-      color-mix(in srgb, var(--teal) 22%, transparent) 0%,
+      60% 50% at 15% 0%,
+      color-mix(in srgb, var(--gold) 30%, transparent) 0%,
       transparent 60%
     ),
     radial-gradient(
-      55% 45% at 85% 15%,
-      color-mix(in srgb, var(--violet) 25%, transparent) 0%,
+      55% 45% at 90% 10%,
+      color-mix(in srgb, var(--coral) 26%, transparent) 0%,
       transparent 60%
     );
 }
@@ -87,8 +88,8 @@ body {
   padding: 1px;
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--teal) 70%, transparent),
-    color-mix(in srgb, var(--violet) 70%, transparent)
+    color-mix(in srgb, var(--coral) 70%, transparent),
+    color-mix(in srgb, var(--gold) 70%, transparent)
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;

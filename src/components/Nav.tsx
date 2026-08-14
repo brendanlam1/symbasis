@@ -66,7 +66,7 @@ export function Nav() {
                 ))}
                 <Link
                   href="/services"
-                  className="mt-1 block rounded-lg px-3 py-2.5 text-sm font-semibold text-teal hover:text-teal-light"
+                  className="mt-1 block rounded-lg px-3 py-2.5 text-sm font-semibold text-coral hover:text-coral-light"
                 >
                   View all services →
                 </Link>
@@ -85,7 +85,7 @@ export function Nav() {
           ))}
           <Link
             href="/contact"
-            className="rounded-full bg-gradient-brand px-5 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-90"
+            className="rounded-full bg-gradient-brand px-5 py-2.5 text-sm font-semibold text-foreground transition-opacity hover:opacity-90"
           >
             Start a project
           </Link>
@@ -147,7 +147,7 @@ export function Nav() {
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
-              className="mt-2 rounded-full bg-gradient-brand px-5 py-3 text-center text-sm font-semibold text-background"
+              className="mt-2 rounded-full bg-gradient-brand px-5 py-3 text-center text-sm font-semibold text-foreground"
             >
               Start a project
             </Link>

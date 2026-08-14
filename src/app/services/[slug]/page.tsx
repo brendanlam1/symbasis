@@ -97,7 +97,7 @@ export default async function ServiceDetailPage({
               <Link
                 key={other.slug}
                 href={`/services/${other.slug}`}
-                className="rounded-xl border border-border p-5 text-sm font-medium text-foreground transition-colors hover:border-teal/60"
+                className="rounded-xl border border-border p-5 text-sm font-medium text-foreground transition-colors hover:border-coral/60"
               >
                 {other.title}
               </Link>

@@ -35,31 +35,34 @@ const beliefs = [
 export default function AboutPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
-        <Image
-          src="/images/mountain-summit.jpg"
-          alt="Snow-capped mountain peak lit by sunset light"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-70 object-[40%_40%]"
-        />
-        <div className="absolute inset-0 bg-radial-glow" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/20" />
-        <Container className="relative flex flex-col gap-6 py-24 sm:py-28">
-          <span className="w-fit rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted">
-            About Symbasis
-          </span>
-          <h1 className="max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
-            Named for the way{" "}
-            <span className="text-gradient">good growth</span> actually works.
-          </h1>
-          <p className="max-w-xl text-lg leading-relaxed text-muted">
-            Symbasis takes its name from symbiosis: two systems growing
-            together, each making the other stronger. That&apos;s the standard we
-            hold every piece of work to: does this make the rest of the
-            marketing better, or does it just exist on its own?
-          </p>
+      <section className="relative overflow-hidden border-b border-border bg-radial-glow">
+        <Container className="grid grid-cols-1 items-center gap-12 py-24 sm:py-28 lg:grid-cols-[1.1fr_1fr]">
+          <div className="flex flex-col gap-6">
+            <span className="w-fit rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted">
+              About Symbasis
+            </span>
+            <h1 className="max-w-xl text-4xl font-semibold tracking-tight sm:text-5xl">
+              Named for the way{" "}
+              <span className="text-gradient">good growth</span> actually works.
+            </h1>
+            <p className="max-w-xl text-lg leading-relaxed text-muted">
+              Symbasis takes its name from symbiosis: two systems growing
+              together, each making the other stronger. That&apos;s the standard we
+              hold every piece of work to: does this make the rest of the
+              marketing better, or does it just exist on its own?
+            </p>
+          </div>
+
+          <div className="border-gradient relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
+            <Image
+              src="/images/mountain-summit.jpg"
+              alt="Snow-capped mountain peak lit by sunset light"
+              fill
+              priority
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover object-[40%_40%]"
+            />
+          </div>
         </Container>
       </section>
 

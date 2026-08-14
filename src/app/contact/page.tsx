@@ -28,7 +28,7 @@ export default function ContactPage() {
           <div className="mt-10 space-y-4 text-sm text-muted">
             <div>
               <p className="font-semibold text-foreground">Email</p>
-              <a href="mailto:hello@symbasis.com.au" className="hover:text-teal">
+              <a href="mailto:hello@symbasis.com.au" className="hover:text-coral">
                 hello@symbasis.com.au
               </a>
             </div>

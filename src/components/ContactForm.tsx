@@ -60,7 +60,7 @@ export function ContactForm() {
           <select
             id="budget"
             name="budget"
-            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-teal focus-visible:ring-2 focus-visible:ring-teal/40"
+            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-coral focus-visible:ring-2 focus-visible:ring-coral/40"
           >
             <option value="">Select a range</option>
             {budgets.map((b) => (
@@ -81,12 +81,12 @@ export function ContactForm() {
           name="message"
           rows={5}
           required
-          className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-teal focus-visible:ring-2 focus-visible:ring-teal/40"
+          className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-coral focus-visible:ring-2 focus-visible:ring-coral/40"
         />
       </div>
 
       {status === "error" && (
-        <p role="alert" aria-live="polite" className="text-sm text-red-400">
+        <p role="alert" aria-live="polite" className="text-sm text-red-700">
           Something went wrong sending your message. Email us directly at{" "}
           <a href="mailto:hello@symbasis.com.au" className="underline">
             hello@symbasis.com.au
@@ -98,7 +98,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="inline-flex items-center justify-center rounded-full bg-gradient-brand px-8 py-3.5 text-sm font-semibold text-background transition-opacity hover:opacity-90 disabled:opacity-60"
+        className="inline-flex items-center justify-center rounded-full bg-gradient-brand px-8 py-3.5 text-sm font-semibold text-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
       >
         {status === "submitting" ? "Sending…" : "Send message"}
       </button>
@@ -133,7 +133,7 @@ function Field({
         autoComplete={autoComplete}
         spellCheck={spellCheck}
         required={required}
-        className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-teal focus-visible:ring-2 focus-visible:ring-teal/40"
+        className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-coral focus-visible:ring-2 focus-visible:ring-coral/40"
       />
     </div>
   );

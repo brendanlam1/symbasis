@@ -9,8 +9,8 @@ export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
     >
       <defs>
         <linearGradient id="symbasis-helix" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#2dd9c8" />
-          <stop offset="1" stopColor="#a855f7" />
+          <stop offset="0" stopColor="#ef6f4c" />
+          <stop offset="1" stopColor="#eda63c" />
         </linearGradient>
       </defs>
       <path
@@ -26,9 +26,9 @@ export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
         strokeLinecap="round"
         opacity="0.45"
       />
-      <circle cx="8" cy="2" r="1.6" fill="#2dd9c8" />
-      <circle cx="24" cy="16" r="1.6" fill="#a855f7" />
-      <circle cx="8" cy="30" r="1.6" fill="#a855f7" />
+      <circle cx="8" cy="2" r="1.6" fill="#ef6f4c" />
+      <circle cx="24" cy="16" r="1.6" fill="#eda63c" />
+      <circle cx="8" cy="30" r="1.6" fill="#eda63c" />
     </svg>
   );
 }
