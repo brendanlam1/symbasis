@@ -45,7 +45,7 @@ export default function AboutPage() {
           </h1>
           <p className="max-w-xl text-lg leading-relaxed text-muted">
             Symbasis takes its name from symbiosis — two systems growing
-            together, each making the other stronger. That's the standard we
+            together, each making the other stronger. That&apos;s the standard we
             hold every piece of work to: does this make the rest of the
             marketing better, or does it just exist on its own?
           </p>
@@ -80,7 +80,7 @@ export default function AboutPage() {
           <p className="text-lg leading-relaxed text-muted">
             We stay deliberately lean. Every client works directly with the
             people planning and running their marketing — not an account
-            manager relaying notes to someone else's team. That's how we keep
+            manager relaying notes to someone else&apos;s team. That&apos;s how we keep
             the strategy and the execution in sync.
           </p>
         </Container>
@@ -89,7 +89,7 @@ export default function AboutPage() {
       <section className="border-t border-border py-24">
         <Container className="flex flex-col items-center gap-6 text-center">
           <h2 className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
-            Let's see if we're a fit
+            Let&apos;s see if we&apos;re a fit
           </h2>
           <p className="max-w-lg text-muted">
             A short call is enough to know. No lengthy pitch process required.

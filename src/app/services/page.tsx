@@ -67,7 +67,7 @@ export default function ServicesPage() {
             Not sure which service you need?
           </h2>
           <p className="max-w-lg text-muted">
-            Most clients don't start with a clear brief. Tell us the problem and we'll scope the right mix.
+            Most clients don&apos;t start with a clear brief. Tell us the problem and we&apos;ll scope the right mix.
           </p>
           <Button href="/contact">Start a project</Button>
         </Container>

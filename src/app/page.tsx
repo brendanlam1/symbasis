@@ -161,7 +161,7 @@ export default function Home() {
             Ready to build something that compounds?
           </h2>
           <p className="max-w-lg text-muted">
-            Tell us where growth is stalling. We'll tell you what we'd do about it — no deck, no fluff.
+            Tell us where growth is stalling. We&apos;ll tell you what we&apos;d do about it — no deck, no fluff.
           </p>
           <Button href="/contact">Start a project</Button>
         </Container>
