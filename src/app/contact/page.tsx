@@ -40,11 +40,11 @@ export default function ContactPage() {
 
           <div className="border-gradient relative mt-10 aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl">
             <Image
-              src="/images/tokyo-skyline.jpg"
-              alt="Tokyo skyline at golden hour, viewed from above"
+              src="/images/sydney-harbour.jpg"
+              alt="Sydney Harbour Bridge and Opera House seen from above"
               fill
               sizes="(min-width: 1024px) 24rem, 100vw"
-              className="object-cover"
+              className="object-cover object-[47%_50%]"
             />
           </div>
         </div>
