@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #06050c;
+  --background-elevated: #0d0b18;
+  --foreground: #f5f4ff;
+  --muted: #a29dbd;
+  --border: rgba(245, 244, 255, 0.1);
+  --teal: #2dd9c8;
+  --teal-light: #7ff0e3;
+  --violet: #a855f7;
+  --violet-light: #d3aefc;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-teal: var(--teal);
+  --color-teal-light: var(--teal-light);
+  --color-violet: var(--violet);
+  --color-violet-light: var(--violet-light);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--violet);
+  color: var(--background);
+}
+
+.text-gradient {
+  background: linear-gradient(120deg, var(--teal) 0%, var(--violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(120deg, var(--teal) 0%, var(--violet) 100%);
+}
+
+.bg-radial-glow {
+  background: radial-gradient(
+      60% 50% at 20% 0%,
+      color-mix(in srgb, var(--teal) 22%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      55% 45% at 85% 15%,
+      color-mix(in srgb, var(--violet) 25%, transparent) 0%,
+      transparent 60%
+    );
+}
+
+.border-gradient {
+  position: relative;
+}
+
+.border-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--teal) 70%, transparent),
+    color-mix(in srgb, var(--violet) 70%, transparent)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }

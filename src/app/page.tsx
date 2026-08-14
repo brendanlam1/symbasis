@@ -1,69 +1,171 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Container } from "@/components/Container";
+import { Button } from "@/components/Button";
+import { services } from "@/lib/services";
+
+const process = [
+  {
+    step: "01",
+    title: "Discover",
+    description: "We dig into your market, your data, and your customers until the real opportunity is obvious.",
+  },
+  {
+    step: "02",
+    title: "Design",
+    description: "Strategy becomes a system — messaging, creative, and channels built to reinforce each other.",
+  },
+  {
+    step: "03",
+    title: "Deploy",
+    description: "We ship fast, in public, with tracking baked in from day one — not bolted on after.",
+  },
+  {
+    step: "04",
+    title: "Compound",
+    description: "Every campaign feeds the next. We double down on what works and kill what doesn't, on a set cadence.",
+  },
+];
+
+const principles = [
+  {
+    title: "One system, not six vendors",
+    description:
+      "Strategy, creative, and media sit under one roof so your channels reinforce each other instead of competing for the same budget.",
+  },
+  {
+    title: "Built on your data",
+    description:
+      "Every recommendation traces back to a number. If we can't measure it, we don't pitch it.",
+  },
+  {
+    title: "Senior hands, every project",
+    description:
+      "No junior hand-off after the pitch. The people who plan the work are the people who run it.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <>
+      <section className="relative overflow-hidden bg-radial-glow">
+        <Container className="flex flex-col items-start gap-8 py-28 sm:py-36">
+          <span className="rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted">
+            Full-service marketing agency
+          </span>
+
+          <h1 className="max-w-3xl text-5xl font-semibold tracking-tight sm:text-6xl md:text-7xl">
+            Marketing built in{" "}
+            <span className="text-gradient">symbiosis</span> with your
+            business.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+            We fuse strategy, creative, and performance into a single system —
+            so every channel compounds instead of competing for budget.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <Button href="/contact">Start a project</Button>
+            <Button href="/services" variant="secondary">
+              Explore services
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-border py-24">
+        <Container>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                Everything a growth team needs.
+                <br />
+                Under one roof.
+              </h2>
+            </div>
+            <Link
+              href="/services"
+              className="text-sm font-semibold text-teal hover:text-teal-light"
+            >
+              View all services →
+            </Link>
+          </div>
+
+          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <div
+                key={service.title}
+                className="border-gradient rounded-2xl bg-background-elevated p-8"
+              >
+                <h3 className="text-lg font-semibold text-foreground">
+                  {service.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {service.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-border py-24">
+        <Container>
+          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
+            How we work
+          </h2>
+
+          <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+            {process.map((item) => (
+              <div key={item.step}>
+                <span className="text-sm font-semibold text-gradient">
+                  {item.step}
+                </span>
+                <h3 className="mt-3 text-lg font-semibold text-foreground">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-border py-24">
+        <Container>
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.4fr]">
+            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+              Why brands work with us
+            </h2>
+            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
+              {principles.map((principle) => (
+                <div key={principle.title}>
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {principle.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                    {principle.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-border py-24">
+        <Container className="flex flex-col items-center gap-6 text-center">
+          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
+            Ready to build something that compounds?
+          </h2>
+          <p className="max-w-lg text-muted">
+            Tell us where growth is stalling. We'll tell you what we'd do about it — no deck, no fluff.
+          </p>
+          <Button href="/contact">Start a project</Button>
+        </Container>
+      </section>
+    </>
   );
 }
