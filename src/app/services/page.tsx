@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { services } from "@/lib/services";
 
 export const metadata: Metadata = {
@@ -14,6 +16,7 @@ export default function ServicesPage() {
     <>
       <section className="border-b border-border bg-radial-glow">
         <Container className="flex flex-col gap-6 py-24 sm:py-28">
+          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services" }]} />
           <span className="rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted w-fit">
             Services
           </span>
@@ -30,16 +33,17 @@ export default function ServicesPage() {
       <section className="py-24">
         <Container className="grid grid-cols-1 gap-16">
           {services.map((service, index) => (
-            <div
-              key={service.title}
-              className="grid grid-cols-1 gap-8 border-b border-border pb-16 last:border-b-0 last:pb-0 lg:grid-cols-[auto_1fr_1fr] lg:items-start lg:gap-12"
+            <Link
+              key={service.slug}
+              href={`/services/${service.slug}`}
+              className="group grid grid-cols-1 gap-8 border-b border-border pb-16 last:border-b-0 last:pb-0 lg:grid-cols-[auto_1fr_1fr] lg:items-start lg:gap-12"
             >
               <span className="text-sm font-semibold text-gradient">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <div>
-                <h2 className="text-2xl font-semibold text-foreground">
-                  {service.title}
+                <h2 className="text-2xl font-semibold text-foreground transition-colors group-hover:text-gradient">
+                  {service.title} →
                 </h2>
                 <p className="mt-3 max-w-md text-muted leading-relaxed">
                   {service.description}
@@ -56,7 +60,7 @@ export default function ServicesPage() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </Link>
           ))}
         </Container>
       </section>

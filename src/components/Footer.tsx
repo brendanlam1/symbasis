@@ -1,12 +1,19 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { Container } from "./Container";
+import { services } from "@/lib/services";
 
 const columns = [
   {
-    title: "Agency",
+    title: "Services",
+    links: services.map((service) => ({
+      href: `/services/${service.slug}`,
+      label: service.title,
+    })),
+  },
+  {
+    title: "Company",
     links: [
-      { href: "/services", label: "Services" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
     ],
@@ -22,7 +29,7 @@ const columns = [
 export function Footer() {
   return (
     <footer className="border-t border-border bg-background-elevated">
-      <Container className="grid grid-cols-1 gap-10 py-16 md:grid-cols-[1.2fr_1fr_1fr]">
+      <Container className="grid grid-cols-1 gap-10 py-16 md:grid-cols-[1.1fr_1fr_1fr_1fr]">
         <div>
           <Logo />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">

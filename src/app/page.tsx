@@ -93,9 +93,10 @@ export default function Home() {
 
           <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
-              <div
-                key={service.title}
-                className="border-gradient rounded-2xl bg-background-elevated p-8"
+              <Link
+                key={service.slug}
+                href={`/services/${service.slug}`}
+                className="border-gradient rounded-2xl bg-background-elevated p-8 transition-transform hover:-translate-y-0.5"
               >
                 <h3 className="text-lg font-semibold text-foreground">
                   {service.title}
@@ -103,7 +104,7 @@ export default function Home() {
                 <p className="mt-3 text-sm leading-relaxed text-muted">
                   {service.description}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         </Container>
