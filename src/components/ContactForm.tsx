@@ -31,7 +31,11 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="border-gradient rounded-2xl bg-background-elevated p-10 text-center">
+      <div
+        role="status"
+        aria-live="polite"
+        className="border-gradient rounded-2xl bg-background-elevated p-10 text-center"
+      >
         <h3 className="text-xl font-semibold text-foreground">Message sent.</h3>
         <p className="mt-2 text-muted">
           Thanks for reaching out — we&apos;ll get back to you within one business day.
@@ -43,12 +47,12 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <Field label="Name" name="name" type="text" required />
-        <Field label="Email" name="email" type="email" required />
+        <Field label="Name" name="name" type="text" autoComplete="name" required />
+        <Field label="Email" name="email" type="email" autoComplete="email" spellCheck={false} required />
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <Field label="Company" name="company" type="text" />
+        <Field label="Company" name="company" type="text" autoComplete="organization" />
         <div>
           <label htmlFor="budget" className="mb-2 block text-sm font-medium text-foreground">
             Monthly budget
@@ -56,7 +60,7 @@ export function ContactForm() {
           <select
             id="budget"
             name="budget"
-            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-teal"
+            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-teal focus-visible:ring-2 focus-visible:ring-teal/40"
           >
             <option value="">Select a range</option>
             {budgets.map((b) => (
@@ -77,12 +81,12 @@ export function ContactForm() {
           name="message"
           rows={5}
           required
-          className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-teal"
+          className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-teal focus-visible:ring-2 focus-visible:ring-teal/40"
         />
       </div>
 
       {status === "error" && (
-        <p className="text-sm text-red-400">
+        <p role="alert" aria-live="polite" className="text-sm text-red-400">
           Something went wrong sending your message. Email us directly at{" "}
           <a href="mailto:hello@symbasis.com.au" className="underline">
             hello@symbasis.com.au
@@ -106,11 +110,15 @@ function Field({
   label,
   name,
   type,
+  autoComplete,
+  spellCheck,
   required,
 }: {
   label: string;
   name: string;
   type: string;
+  autoComplete?: string;
+  spellCheck?: boolean;
   required?: boolean;
 }) {
   return (
@@ -122,8 +130,10 @@ function Field({
         id={name}
         name={name}
         type={type}
+        autoComplete={autoComplete}
+        spellCheck={spellCheck}
         required={required}
-        className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-teal"
+        className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-teal focus-visible:ring-2 focus-visible:ring-teal/40"
       />
     </div>
   );

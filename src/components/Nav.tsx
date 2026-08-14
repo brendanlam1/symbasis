@@ -13,6 +13,7 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
@@ -22,18 +23,37 @@ export function Nav() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          <div className="group relative">
+          <div
+            className="relative"
+            onMouseEnter={() => setServicesOpen(true)}
+            onMouseLeave={() => setServicesOpen(false)}
+            onFocus={() => setServicesOpen(true)}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+                setServicesOpen(false);
+              }
+            }}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") setServicesOpen(false);
+            }}
+          >
             <Link
               href="/services"
+              aria-haspopup="true"
+              aria-expanded={servicesOpen}
               className="flex items-center gap-1 text-sm font-medium text-muted transition-colors hover:text-foreground"
             >
               Services
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="mt-px">
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" className="mt-px">
                 <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
 
-            <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-3 opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+            <div
+              className={`absolute left-1/2 top-full -translate-x-1/2 pt-3 transition-opacity duration-150 ${
+                servicesOpen ? "visible opacity-100" : "invisible opacity-0"
+              }`}
+            >
               <div className="border-gradient w-64 rounded-2xl bg-background-elevated p-3 shadow-xl">
                 {services.map((service) => (
                   <Link
@@ -80,11 +100,11 @@ export function Nav() {
         >
           <span className="sr-only">Toggle menu</span>
           {open ? (
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <path d="M2 2L16 16M16 2L2 16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
           ) : (
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <path d="M1 4.5H17M1 9H17M1 13.5H17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
           )}

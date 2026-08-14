@@ -96,7 +96,7 @@ export default function Home() {
               <Link
                 key={service.slug}
                 href={`/services/${service.slug}`}
-                className="border-gradient rounded-2xl bg-background-elevated p-8 transition-transform hover:-translate-y-0.5"
+                className="border-gradient rounded-2xl bg-background-elevated p-8 transition-transform motion-safe:hover:-translate-y-0.5"
               >
                 <h3 className="text-lg font-semibold text-foreground">
                   {service.title}
