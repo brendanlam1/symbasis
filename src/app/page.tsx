@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
+import { ParallaxImage } from "@/components/ParallaxImage";
 import { services } from "@/lib/services";
 
 const process = [
@@ -48,41 +48,38 @@ const principles = [
 export default function Home() {
   return (
     <>
-      <section className="relative overflow-hidden bg-radial-glow">
-        <Container className="grid grid-cols-1 items-center gap-12 py-28 sm:py-36 lg:grid-cols-[1.1fr_1fr]">
-          <div className="flex flex-col items-start gap-8">
+      <section className="relative isolate flex min-h-[85vh] items-center overflow-hidden">
+        <ParallaxImage
+          src="/images/earth-network.jpg"
+          alt="Earth at night seen from orbit, city lights forming a connected network across the globe"
+          objectPosition="50% 68%"
+          factor={0.25}
+        />
+        <div className="absolute inset-0 bg-foreground/10" />
+
+        <Container className="relative py-24">
+          <div className="border-gradient max-w-xl rounded-3xl bg-background/85 p-8 backdrop-blur-md sm:p-12">
             <span className="rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted">
               Full-service marketing agency
             </span>
 
-            <h1 className="max-w-xl text-5xl font-semibold tracking-tight sm:text-6xl">
+            <h1 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">
               Marketing built in{" "}
               <span className="text-gradient">symbiosis</span> with your
               business.
             </h1>
 
-            <p className="max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+            <p className="mt-6 text-lg leading-relaxed text-muted sm:text-xl">
               We fuse strategy, creative, and performance into a single system,
               so every channel compounds instead of competing for budget.
             </p>
 
-            <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Button href="/contact">Start a project</Button>
               <Button href="/services" variant="secondary">
                 Explore services
               </Button>
             </div>
-          </div>
-
-          <div className="border-gradient relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
-            <Image
-              src="/images/earth-network.jpg"
-              alt="Earth at night seen from orbit, city lights forming a connected network across the globe"
-              fill
-              priority
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-cover object-[50%_70%]"
-            />
           </div>
         </Container>
       </section>
