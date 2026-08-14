@@ -44,7 +44,7 @@ export default function AboutPage() {
             <span className="text-gradient">good growth</span> actually works.
           </h1>
           <p className="max-w-xl text-lg leading-relaxed text-muted">
-            Symbasis takes its name from symbiosis — two systems growing
+            Symbasis takes its name from symbiosis: two systems growing
             together, each making the other stronger. That&apos;s the standard we
             hold every piece of work to: does this make the rest of the
             marketing better, or does it just exist on its own?
@@ -79,7 +79,7 @@ export default function AboutPage() {
           </h2>
           <p className="text-lg leading-relaxed text-muted">
             We stay deliberately lean. Every client works directly with the
-            people planning and running their marketing — not an account
+            people planning and running their marketing, not an account
             manager relaying notes to someone else&apos;s team. That&apos;s how we keep
             the strategy and the execution in sync.
           </p>

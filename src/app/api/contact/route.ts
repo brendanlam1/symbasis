@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   }
 
   // TODO: wire up to an email/CRM provider (e.g. Resend, SendGrid, HubSpot)
-  // before launch — this currently accepts submissions without delivering them.
+  // before launch. This currently accepts submissions without delivering them.
   console.log("New Symbasis contact submission:", body);
 
   return NextResponse.json({ ok: true });

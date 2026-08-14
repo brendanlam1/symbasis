@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Symbasis — Full-Service Marketing Agency",
-    template: "%s — Symbasis",
+    default: "Symbasis | Full-Service Marketing Agency",
+    template: "%s | Symbasis",
   },
   description:
     "Symbasis is a full-service marketing agency helping ambitious brands grow through strategy, content, performance, and design that work as one system.",

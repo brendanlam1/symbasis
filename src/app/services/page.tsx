@@ -8,7 +8,7 @@ import { services } from "@/lib/services";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Strategy, creative, performance, SEO, social, and web — the full stack of marketing services under one roof at Symbasis.",
+    "Strategy, creative, performance, SEO, social, and web: the full stack of marketing services under one roof at Symbasis.",
 };
 
 export default function ServicesPage() {

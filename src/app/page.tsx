@@ -12,12 +12,12 @@ const process = [
   {
     step: "02",
     title: "Design",
-    description: "Strategy becomes a system — messaging, creative, and channels built to reinforce each other.",
+    description: "Strategy becomes a system: messaging, creative, and channels built to reinforce each other.",
   },
   {
     step: "03",
     title: "Deploy",
-    description: "We ship fast, in public, with tracking baked in from day one — not bolted on after.",
+    description: "We ship fast, in public, with tracking baked in from day one, not bolted on after.",
   },
   {
     step: "04",
@@ -60,7 +60,7 @@ export default function Home() {
           </h1>
 
           <p className="max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-            We fuse strategy, creative, and performance into a single system —
+            We fuse strategy, creative, and performance into a single system,
             so every channel compounds instead of competing for budget.
           </p>
 
@@ -162,7 +162,7 @@ export default function Home() {
             Ready to build something that compounds?
           </h2>
           <p className="max-w-lg text-muted">
-            Tell us where growth is stalling. We&apos;ll tell you what we&apos;d do about it — no deck, no fluff.
+            Tell us where growth is stalling. We&apos;ll tell you what we&apos;d do about it. No deck, no fluff.
           </p>
           <Button href="/contact">Start a project</Button>
         </Container>

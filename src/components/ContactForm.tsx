@@ -38,7 +38,7 @@ export function ContactForm() {
       >
         <h3 className="text-xl font-semibold text-foreground">Message sent.</h3>
         <p className="mt-2 text-muted">
-          Thanks for reaching out — we&apos;ll get back to you within one business day.
+          Thanks for reaching out. We&apos;ll get back to you within one business day.
         </p>
       </div>
     );

@@ -21,7 +21,7 @@ export default function ContactPage() {
           </h1>
           <p className="mt-6 max-w-sm text-lg leading-relaxed text-muted">
             Tell us where things are stalling. We&apos;ll reply within one
-            business day with next steps — no lengthy pitch process.
+            business day with next steps. No lengthy pitch process.
           </p>
 
           <div className="mt-10 space-y-4 text-sm text-muted">
