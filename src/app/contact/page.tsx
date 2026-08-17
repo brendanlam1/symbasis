@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 import { ContactForm } from "@/components/ContactForm";
+import { AuroraField } from "@/components/AuroraField";
+import { Reveal } from "@/components/Reveal";
+import { MetaStrip, SYDNEY_COORDS } from "@/components/MetaStrip";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -11,47 +14,96 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="bg-radial-glow py-24 sm:py-28">
-      <Container className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_1.3fr]">
-        <div>
-          <span className="w-fit rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted">
-            Contact
-          </span>
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Let&apos;s talk growth.
+    <section className="relative isolate overflow-hidden py-20 sm:py-28">
+      <AuroraField intensity="bright" />
+      <div aria-hidden="true" className="absolute inset-0 bg-background/25" />
+      <div
+        aria-hidden="true"
+        className="scanlines absolute inset-0 opacity-15"
+      />
+
+      <Container className="relative z-10 grid grid-cols-1 gap-14 lg:grid-cols-[1fr_1.25fr] lg:gap-20">
+        <div className="flex flex-col gap-7">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+            <span className="index-tag">[SB.09]</span>
+            <span aria-hidden="true" className="hidden h-px w-10 bg-border-strong sm:block" />
+            <span className="mono-label">Contact</span>
+          </div>
+
+          <h1 className="display text-[clamp(2.1rem,5.6vw,3.5rem)] text-foreground">
+            Let&apos;s talk
+            <br />
+            <span className="text-signal">growth.</span>
           </h1>
-          <p className="mt-6 max-w-sm text-lg leading-relaxed text-muted">
+
+          <p className="max-w-sm text-base leading-relaxed text-muted sm:text-lg">
             Tell us where things are stalling. We&apos;ll reply within one
             business day with next steps. No lengthy pitch process.
           </p>
 
-          <div className="mt-10 space-y-4 text-sm text-muted">
+          <dl className="mt-2 grid grid-cols-1 gap-6 border-t border-border pt-7 sm:grid-cols-2 lg:grid-cols-1">
             <div>
-              <p className="font-semibold text-foreground">Email</p>
-              <a href="mailto:hello@symbasis.com.au" className="hover:text-coral">
-                hello@symbasis.com.au
-              </a>
+              <dt className="mono-label text-foreground/70">Email</dt>
+              <dd className="mt-2">
+                <a
+                  href="mailto:hello@symbasis.com.au"
+                  className="inline-flex tap-target items-center text-base text-foreground transition-colors hover:text-signal"
+                >
+                  hello@symbasis.com.au
+                </a>
+              </dd>
             </div>
             <div>
-              <p className="font-semibold text-foreground">Based in</p>
-              <p>Sydney, Australia</p>
+              <dt className="mono-label text-foreground/70">Based in</dt>
+              <dd className="mt-2 text-base text-foreground">
+                Sydney, Australia
+              </dd>
+              <dd className="mono-data mt-1.5">{SYDNEY_COORDS}</dd>
+            </div>
+          </dl>
+
+          <figure className="photo-record group mt-4 hidden flex-col gap-4 lg:flex">
+            <div className="photo-treated relative aspect-[4/5] w-full max-w-sm overflow-hidden border border-border bg-surface">
+              <Image
+                src="/images/bondi-icebergs.jpg"
+                alt="Bondi Icebergs ocean pool with swimmers, waves breaking over the edge"
+                fill
+                sizes="24rem"
+                className="object-cover"
+                style={{ objectPosition: "50% 58%" }}
+              />
+              <div
+                aria-hidden="true"
+                className="scanlines absolute inset-0 opacity-20"
+              />
+              <span className="catalog-chip">SYD.002</span>
+            </div>
+            <figcaption className="mono-label text-foreground/70">
+              Bondi / Sydney, AU
+            </figcaption>
+          </figure>
+        </div>
+
+        {/* The form is the bright panel on this page: a near-white translucent
+            card lifted off the dark canvas, with full-brightness content on it
+            rather than another dark-on-dark surface. */}
+        <Reveal>
+          <div className="on-paper border border-border-strong bg-background/92 shadow-2xl shadow-black/40 backdrop-blur-md">
+            <div className="flex flex-col gap-1 border-b border-border px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-10">
+              <span className="mono-label text-foreground/70">
+                Project enquiry
+              </span>
+              <span className="mono-data">Required fields marked *</span>
+            </div>
+            <div className="p-6 sm:p-10">
+              <ContactForm />
             </div>
           </div>
+        </Reveal>
+      </Container>
 
-          <div className="border-gradient relative mt-10 aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl">
-            <Image
-              src="/images/sydney-harbour.jpg"
-              alt="Sydney Harbour Bridge and Opera House seen from above"
-              fill
-              sizes="(min-width: 1024px) 24rem, 100vw"
-              className="object-cover object-[47%_50%]"
-            />
-          </div>
-        </div>
-
-        <div className="border-gradient rounded-2xl bg-background-elevated p-8 sm:p-10">
-          <ContactForm />
-        </div>
+      <Container className="relative z-10 mt-16">
+        <MetaStrip className="border-t border-border pt-6" />
       </Container>
     </section>
   );

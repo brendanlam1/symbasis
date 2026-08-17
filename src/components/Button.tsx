@@ -7,19 +7,31 @@ type ButtonProps = {
   className?: string;
 };
 
-export function Button({ href, children, variant = "primary", className = "" }: ButtonProps) {
+export function Button({
+  href,
+  children,
+  variant = "primary",
+  className = "",
+}: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center rounded-full px-6 py-3.5 text-sm font-semibold transition-[opacity,transform,border-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+    "group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm font-semibold tracking-wide transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
   const variants = {
-    primary: "bg-gradient-brand text-foreground hover:opacity-90 motion-safe:hover:-translate-y-0.5",
+    primary:
+      "bg-signal text-on-accent hover:bg-signal-soft motion-safe:hover:-translate-y-0.5",
     secondary:
-      "border border-border text-foreground hover:border-coral/60 motion-safe:hover:-translate-y-0.5",
+      "border border-border-strong text-foreground hover:border-signal hover:text-signal-soft motion-safe:hover:-translate-y-0.5",
   };
 
   return (
     <Link href={href} className={`${base} ${variants[variant]} ${className}`}>
       {children}
+      <span
+        aria-hidden="true"
+        className="transition-transform duration-200 motion-safe:group-hover:translate-x-1"
+      >
+        →
+      </span>
     </Link>
   );
 }
