@@ -4,6 +4,9 @@ import { useState, type FormEvent } from "react";
 
 const budgets = ["Under $5k / month", "$5k–15k / month", "$15k–40k / month", "$40k+ / month"];
 
+const fieldClass =
+  "w-full border border-border-strong bg-background/60 px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] placeholder:text-faint focus:border-signal focus-visible:ring-2 focus-visible:ring-signal/40";
+
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
@@ -34,18 +37,21 @@ export function ContactForm() {
       <div
         role="status"
         aria-live="polite"
-        className="border-gradient rounded-2xl bg-background-elevated p-10 text-center"
+        className="border border-signal/40 bg-surface p-10 text-center"
       >
-        <h3 className="text-xl font-semibold text-foreground">Message sent.</h3>
-        <p className="mt-2 text-muted">
-          Thanks for reaching out. We&apos;ll get back to you within one business day.
+        <p className="mono-label text-signal">Message received</p>
+        <h3 className="display mt-4 text-2xl text-foreground">
+          Thanks for reaching out.
+        </h3>
+        <p className="mt-3 text-muted">
+          We&apos;ll get back to you within one business day.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-7">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Field label="Name" name="name" type="text" autoComplete="name" required />
         <Field label="Email" name="email" type="email" autoComplete="email" spellCheck={false} required />
@@ -54,14 +60,10 @@ export function ContactForm() {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Field label="Company" name="company" type="text" autoComplete="organization" />
         <div>
-          <label htmlFor="budget" className="mb-2 block text-sm font-medium text-foreground">
+          <label htmlFor="budget" className="mono-label mb-2.5 block text-foreground/80">
             Monthly budget
           </label>
-          <select
-            id="budget"
-            name="budget"
-            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-coral focus-visible:ring-2 focus-visible:ring-coral/40"
-          >
+          <select id="budget" name="budget" className={fieldClass}>
             <option value="">Select a range</option>
             {budgets.map((b) => (
               <option key={b} value={b}>
@@ -73,20 +75,24 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="mb-2 block text-sm font-medium text-foreground">
+        <label htmlFor="message" className="mono-label mb-2.5 block text-foreground/80">
           What are you looking to achieve?
+          <span aria-hidden="true" className="text-signal">
+            {" "}
+            *
+          </span>
         </label>
         <textarea
           id="message"
           name="message"
           rows={5}
           required
-          className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-coral focus-visible:ring-2 focus-visible:ring-coral/40"
+          className={fieldClass}
         />
       </div>
 
       {status === "error" && (
-        <p role="alert" aria-live="polite" className="text-sm text-red-700">
+        <p role="alert" aria-live="polite" className="border border-signal/50 bg-signal/10 px-4 py-3 text-sm text-signal-soft">
           Something went wrong sending your message. Email us directly at{" "}
           <a href="mailto:hello@symbasis.com.au" className="underline">
             hello@symbasis.com.au
@@ -95,13 +101,17 @@ export function ContactForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === "submitting"}
-        className="inline-flex items-center justify-center rounded-full bg-gradient-brand px-8 py-3.5 text-sm font-semibold text-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
-      >
-        {status === "submitting" ? "Sending…" : "Send message"}
-      </button>
+      <div className="flex flex-wrap items-center gap-5">
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="inline-flex items-center justify-center gap-2.5 bg-signal px-8 py-3.5 text-sm font-semibold tracking-wide text-on-accent transition-colors hover:bg-signal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60"
+        >
+          {status === "submitting" ? "Sending…" : "Send message"}
+          <span aria-hidden="true">→</span>
+        </button>
+        <p className="mono-data">Reply within 1 business day</p>
+      </div>
     </form>
   );
 }
@@ -123,8 +133,14 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={name} className="mb-2 block text-sm font-medium text-foreground">
+      <label htmlFor={name} className="mono-label mb-2.5 block text-foreground/80">
         {label}
+        {required ? (
+          <span aria-hidden="true" className="text-signal">
+            {" "}
+            *
+          </span>
+        ) : null}
       </label>
       <input
         id={name}
@@ -133,7 +149,7 @@ function Field({
         autoComplete={autoComplete}
         spellCheck={spellCheck}
         required={required}
-        className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-coral focus-visible:ring-2 focus-visible:ring-coral/40"
+        className={fieldClass}
       />
     </div>
   );

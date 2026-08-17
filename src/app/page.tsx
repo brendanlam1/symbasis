@@ -2,28 +2,39 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { ParallaxImage } from "@/components/ParallaxImage";
+import { AuroraField } from "@/components/AuroraField";
+import { MetaStrip, SYDNEY_COORDS } from "@/components/MetaStrip";
+import { Reveal } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
+import { ScanDivider } from "@/components/ScanDivider";
+import { PinnedProcess, type ProcessStep } from "@/components/PinnedProcess";
+import { PhotoRecord, type PhotoRecordItem } from "@/components/PhotoRecord";
 import { services } from "@/lib/services";
 
-const process = [
+const process: readonly ProcessStep[] = [
   {
     step: "01",
     title: "Discover",
-    description: "We dig into your market, your data, and your customers until the real opportunity is obvious.",
+    description:
+      "We dig into your market, your data, and your customers until the real opportunity is obvious.",
   },
   {
     step: "02",
     title: "Design",
-    description: "Strategy becomes a system: messaging, creative, and channels built to reinforce each other.",
+    description:
+      "Strategy becomes a system: messaging, creative, and channels built to reinforce each other.",
   },
   {
     step: "03",
     title: "Deploy",
-    description: "We ship fast, in public, with tracking baked in from day one, not bolted on after.",
+    description:
+      "We ship fast, in public, with tracking baked in from day one, not bolted on after.",
   },
   {
     step: "04",
     title: "Compound",
-    description: "Every campaign feeds the next. We double down on what works and kill what doesn't, on a set cadence.",
+    description:
+      "Every campaign feeds the next. We double down on what works and kill what doesn't, on a set cadence.",
   },
 ];
 
@@ -45,137 +56,252 @@ const principles = [
   },
 ];
 
+const records: PhotoRecordItem[] = [
+  {
+    src: "/images/opera-house-sails.jpg",
+    alt: "Close view of the Sydney Opera House sails against a pale blue sky",
+    code: "SYD.001",
+    place: "Bennelong Point",
+    caption:
+      "Proof that a strong silhouette outlasts every campaign written to explain it.",
+    objectPosition: "50% 72%",
+  },
+  {
+    src: "/images/bondi-icebergs.jpg",
+    alt: "Bondi Icebergs ocean pool with swimmers, waves breaking over the edge",
+    code: "SYD.002",
+    place: "Bondi",
+    caption:
+      "The local institution playbook: show up every day, in every season, in the same place.",
+    objectPosition: "50% 55%",
+  },
+  {
+    src: "/images/cbd-tram-street.jpg",
+    alt: "George Street in the Sydney CBD looking down the light rail tracks toward the city towers",
+    code: "SYD.003",
+    place: "George Street",
+    caption:
+      "Where attention is actually won: at street level, in daylight, against everything else.",
+    objectPosition: "50% 42%",
+  },
+];
+
 export default function Home() {
   return (
     <>
-      <section className="relative isolate flex min-h-[85vh] items-center overflow-hidden">
+      {/* ---------------------------------------------------------------- Hero */}
+      <section className="relative isolate flex min-h-screen items-end overflow-hidden">
         <ParallaxImage
-          src="/images/earth-network.jpg"
-          alt="Earth at night seen from orbit, city lights forming a connected network across the globe"
-          objectPosition="50% 68%"
-          factor={0.25}
+          src="/images/sydney-harbour.jpg"
+          alt="Aerial view of Sydney Harbour at golden hour with the Opera House and Harbour Bridge"
+          objectPosition="52% 38%"
+          factor={0.22}
+          preload
         />
-        <div className="absolute inset-0 bg-foreground/10" />
 
-        <Container className="relative py-24">
-          <div className="border-gradient max-w-xl rounded-3xl bg-background/85 p-8 backdrop-blur-md sm:p-12">
-            <span className="rounded-full border border-border px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted">
-              Full-service marketing agency
-            </span>
+        {/* Clear at the top so the photograph actually reads, solid at the
+            bottom where the headline and CTAs sit. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(to top, rgba(10,11,13,0.97) 0%, rgba(10,11,13,0.93) 34%, rgba(10,11,13,0.62) 62%, rgba(10,11,13,0.28) 100%)",
+          }}
+        />
+        <AuroraField intensity="soft" />
+        <div
+          aria-hidden="true"
+          className="scanlines absolute inset-0 opacity-15"
+        />
 
-            <h1 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">
-              Marketing built in{" "}
-              <span className="text-gradient">symbiosis</span> with your
-              business.
-            </h1>
-
-            <p className="mt-6 text-lg leading-relaxed text-muted sm:text-xl">
-              We fuse strategy, creative, and performance into a single system,
-              so every channel compounds instead of competing for budget.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Button href="/contact">Start a project</Button>
-              <Button href="/services" variant="secondary">
-                Explore services
-              </Button>
-            </div>
+        <Container className="relative z-10 pb-16 pt-32 sm:pb-20 sm:pt-36">
+          <div className="flex items-center gap-3">
+            <span className="index-tag">[SB.01]</span>
+            <span aria-hidden="true" className="h-px w-10 bg-border-strong" />
+            <span className="mono-label">Full-service marketing agency</span>
           </div>
+
+          <h1 className="display mt-8 grid max-w-5xl grid-cols-1 gap-x-10 gap-y-1 text-[clamp(2.1rem,6vw,3.75rem)] sm:grid-cols-[0.85fr_1.15fr] sm:gap-y-2">
+            <span>Marketing</span>
+            <span className="text-muted">built in</span>
+            <span className="text-signal">symbiosis</span>
+            <span className="text-muted">with your business.</span>
+          </h1>
+
+          <p className="mt-9 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+            We fuse strategy, creative, and performance into a single system, so
+            every channel compounds instead of competing for budget.
+          </p>
+
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <Button href="/contact">Start a project</Button>
+            <Button href="/services" variant="secondary">
+              Explore services
+            </Button>
+          </div>
+
+          <MetaStrip className="mt-14 border-t border-border pt-6" />
         </Container>
       </section>
 
-      <section className="border-t border-border py-24">
-        <Container>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                Everything a growth team needs.
-                <br />
-                Under one roof.
-              </h2>
-            </div>
-            <Link
-              href="/services"
-              className="text-sm font-semibold text-coral hover:text-coral-light"
-            >
-              View all services →
-            </Link>
-          </div>
+      <ScanDivider code="Signal acquired / Sydney, AU" />
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
+      {/* -------------------------------------------------------- Capabilities */}
+      <section className="relative isolate overflow-hidden py-24 sm:py-32">
+        <AuroraField intensity="faint" />
+
+        <Container className="relative z-10">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <SectionHeading
+              index="SB.02"
+              label="Capabilities"
+              title={
+                <>
+                  Everything a growth team needs.
+                  <br />
+                  <span className="text-muted">Under one roof.</span>
+                </>
+              }
+            />
+            <Reveal delay={120}>
               <Link
-                key={service.slug}
-                href={`/services/${service.slug}`}
-                className="border-gradient rounded-2xl bg-background-elevated p-8 transition-transform motion-safe:hover:-translate-y-0.5"
+                href="/services"
+                className="mono-label inline-flex items-center gap-2 text-signal transition-colors hover:text-signal-soft"
               >
-                <h3 className="text-lg font-semibold text-foreground">
-                  {service.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  {service.description}
-                </p>
+                All services <span aria-hidden="true">→</span>
               </Link>
+            </Reveal>
+          </div>
+
+          <div className="mt-16 grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, index) => (
+              <Reveal key={service.slug} delay={index * 70}>
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="group flex h-full flex-col bg-background p-8 transition-colors duration-300 hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-signal"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="mono-data text-faint">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="text-signal opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    >
+                      →
+                    </span>
+                  </div>
+                  <h3 className="display mt-8 text-2xl text-foreground transition-colors group-hover:text-signal-soft">
+                    {service.title}
+                  </h3>
+                  <p className="mt-4 text-sm leading-relaxed text-muted">
+                    {service.description}
+                  </p>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="border-t border-border py-24">
-        <Container>
-          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
-            How we work
-          </h2>
+      {/* ---------------------------------------------- Pinned process reveal */}
+      <PinnedProcess
+        steps={process}
+        src="/images/opera-house-sunset.jpg"
+        alt="Sydney Opera House at dusk beneath a pink and blue harbour sky"
+        objectPosition="72% 64%"
+        index="SB.03"
+        eyebrow="Method"
+        title={
+          <>
+            How we work,
+            <br />
+            <span className="text-muted">in four moves.</span>
+          </>
+        }
+      />
 
-          <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-            {process.map((item) => (
-              <div key={item.step}>
-                <span className="text-sm font-semibold text-gradient">
-                  {item.step}
-                </span>
-                <h3 className="mt-3 text-lg font-semibold text-foreground">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {item.description}
-                </p>
-              </div>
+      {/* -------------------------------------------------------- Field records */}
+      <section className="relative isolate overflow-hidden border-t border-border py-24 sm:py-32">
+        <Container className="relative z-10">
+          <SectionHeading
+            index="SB.04"
+            label="Field records"
+            title={
+              <>
+                Made in Sydney.
+                <br />
+                <span className="text-muted">Built to travel.</span>
+              </>
+            }
+            lede="We're a Sydney agency, and the city is a decent teacher: the things that last here are the ones with a clear point of view and the discipline to keep showing up."
+          />
+
+          <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {records.map((item, index) => (
+              <Reveal key={item.code} delay={index * 110}>
+                <PhotoRecord item={item} />
+              </Reveal>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="border-t border-border py-24">
-        <Container>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.4fr]">
-            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              Why brands work with us
-            </h2>
-            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
-              {principles.map((principle) => (
-                <div key={principle.title}>
-                  <h3 className="text-lg font-semibold text-foreground">
+      <ScanDivider code={SYDNEY_COORDS} />
+
+      {/* ----------------------------------------------- Operating principles */}
+      <section className="relative isolate overflow-hidden py-24 sm:py-32">
+        <AuroraField intensity="faint" />
+
+        <Container className="relative z-10">
+          <SectionHeading
+            index="SB.05"
+            label="Operating principles"
+            title="Why brands work with us"
+          />
+
+          <div className="mt-16 grid grid-cols-1 gap-x-10 gap-y-12 lg:grid-cols-3">
+            {principles.map((principle, index) => (
+              <Reveal key={principle.title} delay={index * 90}>
+                <div className="flex h-full flex-col border-t border-border-strong pt-6">
+                  <span className="font-mono text-3xl tabular-nums text-signal">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="display mt-5 text-xl text-foreground">
                     {principle.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                  <p className="mt-3 text-sm leading-relaxed text-muted">
                     {principle.description}
                   </p>
                 </div>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
 
-      <section className="border-t border-border py-24">
-        <Container className="flex flex-col items-center gap-6 text-center">
-          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
-            Ready to build something that compounds?
-          </h2>
-          <p className="max-w-lg text-muted">
-            Tell us where growth is stalling. We&apos;ll tell you what we&apos;d do about it. No deck, no fluff.
-          </p>
-          <Button href="/contact">Start a project</Button>
+      {/* ---------------------------------------------------------------- Outro */}
+      <section className="relative isolate overflow-hidden border-t border-border py-28 sm:py-36">
+        <AuroraField intensity="soft" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-background/55"
+        />
+
+        <Container className="relative z-10 flex flex-col items-center gap-7 text-center">
+          <Reveal className="flex flex-col items-center gap-7">
+            <span className="mono-label">Next step</span>
+            <h2 className="display max-w-3xl text-4xl text-foreground sm:text-5xl lg:text-6xl">
+              Ready to build something that compounds?
+            </h2>
+            <p className="max-w-lg text-base leading-relaxed text-muted sm:text-lg">
+              Tell us where growth is stalling. We&apos;ll tell you what
+              we&apos;d do about it. No deck, no fluff.
+            </p>
+            <Button href="/contact">Start a project</Button>
+            <MetaStrip className="justify-center pt-4" />
+          </Reveal>
         </Container>
       </section>
     </>
