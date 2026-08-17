@@ -12,7 +12,12 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
         {items.map((item, index) => (
           <li key={item.label} className="flex items-center gap-2">
             {item.href ? (
-              <Link href={item.href} className="transition-colors hover:text-foreground">
+              // 44px tall on touch; the crumbs sit side by side, so the row
+              // height is unchanged.
+              <Link
+                href={item.href}
+                className="inline-flex tap-target items-center transition-colors hover:text-foreground"
+              >
                 {item.label}
               </Link>
             ) : (

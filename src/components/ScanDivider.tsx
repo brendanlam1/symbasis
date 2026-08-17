@@ -19,7 +19,10 @@ export function ScanDivider({ code }: { code?: string }) {
             {code}
           </span>
         ) : null}
-        <span className="mono-data whitespace-nowrap text-faint/70">
+        {/* Two nowrap blocks plus the code label overflow a 375px viewport;
+            the parent clips rather than scrolls, but a half-cut block looks
+            broken, so the trailing one only appears once it fits. */}
+        <span className="mono-data hidden whitespace-nowrap text-faint/70 sm:inline">
           ░░▒▒▓▓ ▒░▓▒ ▓▓▒▒░░
         </span>
       </div>

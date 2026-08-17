@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 import { Container } from "./Container";
 import { services } from "@/lib/services";
@@ -12,8 +13,39 @@ const links = [
 ];
 
 export function Nav() {
-  const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const pathname = usePathname();
+
+  // The drawer is open only for the route it was opened on, so *any* navigation
+  // closes it — including back/forward, where an onClick handler never runs.
+  // Derived rather than synchronised in an effect: no cascading render, and no
+  // frame where the drawer is still open over the new page.
+  const [openedOn, setOpenedOn] = useState<string | null>(null);
+  const open = openedOn === pathname;
+
+  const setOpen = (next: boolean) => setOpenedOn(next ? pathname : null);
+
+  // While the drawer is open the page behind it must not scroll, or a swipe
+  // on the drawer drags the page instead. Escape closes it, matching the
+  // desktop Services menu.
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function onKeyDown(event: KeyboardEvent) {
+      // `setOpenedOn` directly rather than the `setOpen` wrapper: the setter is
+      // stable, so the effect does not re-subscribe on every render.
+      if (event.key === "Escape") setOpenedOn(null);
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
@@ -21,7 +53,7 @@ export function Nav() {
         <Link
           href="/"
           onClick={() => setOpen(false)}
-          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+          className="flex min-h-11 items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-4 focus-visible:ring-offset-background"
         >
           <Logo />
         </Link>
@@ -45,7 +77,7 @@ export function Nav() {
               href="/services"
               aria-haspopup="true"
               aria-expanded={servicesOpen}
-              className="flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-foreground"
+              className="tap-target flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-foreground"
             >
               Services
               <svg
@@ -76,7 +108,7 @@ export function Nav() {
                   <Link
                     key={service.slug}
                     href={`/services/${service.slug}`}
-                    className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
+                    className="tap-target flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
                   >
                     <span className="font-mono text-[0.625rem] tracking-widest text-faint">
                       {String(index + 1).padStart(2, "0")}
@@ -86,7 +118,7 @@ export function Nav() {
                 ))}
                 <Link
                   href="/services"
-                  className="mt-1 flex items-center gap-2 border-t border-border px-3 py-2.5 text-sm font-semibold text-signal transition-colors hover:text-signal-soft"
+                  className="tap-target mt-1 flex items-center gap-2 border-t border-border px-3 py-2.5 text-sm font-semibold text-signal transition-colors hover:text-signal-soft"
                 >
                   All services <span aria-hidden="true">→</span>
                 </Link>
@@ -98,14 +130,14 @@ export function Nav() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-muted transition-colors hover:text-foreground"
+              className="tap-target flex items-center text-sm font-medium text-muted transition-colors hover:text-foreground"
             >
               {link.label}
             </Link>
           ))}
           <Link
             href="/contact"
-            className="bg-signal px-5 py-2.5 text-sm font-semibold tracking-wide text-on-accent transition-colors hover:bg-signal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="tap-target inline-flex items-center bg-signal px-5 py-2.5 text-sm font-semibold tracking-wide text-on-accent transition-colors hover:bg-signal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             Start a project
           </Link>
@@ -113,10 +145,10 @@ export function Nav() {
 
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-label="Toggle menu"
-          className="flex h-10 w-10 items-center justify-center border border-border-strong text-foreground transition-colors hover:border-signal md:hidden"
+          className="flex h-11 w-11 items-center justify-center border border-border-strong text-foreground transition-colors hover:border-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal md:hidden"
         >
           <span className="sr-only">Toggle menu</span>
           {open ? (
@@ -142,12 +174,15 @@ export function Nav() {
       </Container>
 
       {open && (
-        <div className="border-t border-border bg-background md:hidden">
+        // Capped to the space below the bar and scrollable inside it: the full
+        // list (5 services + 2 links + CTA) is taller than a landscape phone,
+        // and `dvh` keeps it correct while mobile browser chrome slides away.
+        <div className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-t border-border bg-background md:hidden">
           <Container className="flex flex-col gap-1 py-5">
             <Link
               href="/services"
               onClick={() => setOpen(false)}
-              className="px-3 py-3 text-base font-medium text-foreground transition-colors hover:bg-surface"
+              className="flex min-h-12 items-center px-3 text-base font-medium text-foreground transition-colors hover:bg-surface"
             >
               Services
             </Link>
@@ -157,7 +192,7 @@ export function Nav() {
                   key={service.slug}
                   href={`/services/${service.slug}`}
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface hover:text-foreground"
+                  className="flex min-h-11 items-center gap-3 px-3 text-sm text-muted transition-colors hover:bg-surface hover:text-foreground"
                 >
                   <span className="font-mono text-[0.625rem] tracking-widest text-faint">
                     {String(index + 1).padStart(2, "0")}
@@ -172,7 +207,7 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="px-3 py-3 text-base font-medium text-foreground transition-colors hover:bg-surface"
+                className="flex min-h-12 items-center px-3 text-base font-medium text-foreground transition-colors hover:bg-surface"
               >
                 {link.label}
               </Link>
@@ -180,7 +215,7 @@ export function Nav() {
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
-              className="mt-3 bg-signal px-5 py-3.5 text-center text-sm font-semibold tracking-wide text-on-accent"
+              className="mt-3 flex min-h-12 items-center justify-center bg-signal px-5 text-center text-sm font-semibold tracking-wide text-on-accent"
             >
               Start a project
             </Link>

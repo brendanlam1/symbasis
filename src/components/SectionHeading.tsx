@@ -25,9 +25,9 @@ export function SectionHeading({
     <Reveal
       className={`flex flex-col gap-5 ${centered ? "items-center text-center" : ""} ${className}`}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
         <span className="index-tag">[{index}]</span>
-        <span aria-hidden="true" className="h-px w-8 bg-border-strong" />
+        <span aria-hidden="true" className="hidden h-px w-8 bg-border-strong sm:block" />
         <span className="mono-label">{label}</span>
       </div>
 

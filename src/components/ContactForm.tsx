@@ -4,8 +4,12 @@ import { useState, type FormEvent } from "react";
 
 const budgets = ["Under $5k / month", "$5k–15k / month", "$15k–40k / month", "$40k+ / month"];
 
+// `text-base` below `sm` is not a style choice: iOS Safari force-zooms the page
+// on focus for any input under 16px, which strands the visitor mid-form at a
+// zoom level they have to pinch back out of. `min-h-12` keeps every control at
+// a 48px tap target.
 const fieldClass =
-  "w-full border border-border-strong bg-background/60 px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] placeholder:text-faint focus:border-signal focus-visible:ring-2 focus-visible:ring-signal/40";
+  "w-full min-h-12 border border-border-strong bg-surface/70 px-4 py-3 text-base text-foreground outline-none transition-[border-color,box-shadow] placeholder:text-faint focus:border-signal focus-visible:ring-2 focus-visible:ring-signal/40 sm:text-sm";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -101,11 +105,11 @@ export function ContactForm() {
         </p>
       )}
 
-      <div className="flex flex-wrap items-center gap-5">
+      <div className="flex flex-col items-stretch gap-5 sm:flex-row sm:flex-wrap sm:items-center">
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex items-center justify-center gap-2.5 bg-signal px-8 py-3.5 text-sm font-semibold tracking-wide text-on-accent transition-colors hover:bg-signal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60"
+          className="inline-flex min-h-12 w-full items-center justify-center gap-2.5 bg-signal px-8 py-3.5 text-sm font-semibold tracking-wide text-on-accent transition-colors hover:bg-signal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60 sm:w-auto"
         >
           {status === "submitting" ? "Sending…" : "Send message"}
           <span aria-hidden="true">→</span>

@@ -48,12 +48,14 @@ export function Footer() {
         {columns.map((col) => (
           <div key={col.title}>
             <h3 className="mono-label text-foreground/70">{col.title}</h3>
+            {/* These links are 18px tall by type; `tap-target` floors them at
+                44px wherever the pointer is coarse. */}
             <ul className="mt-5 space-y-3">
               {col.links.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted transition-colors hover:text-foreground"
+                    className="flex tap-target items-center text-sm text-muted transition-colors hover:text-foreground"
                   >
                     {link.label}
                   </Link>
