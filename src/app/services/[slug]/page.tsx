@@ -42,8 +42,8 @@ export default async function ServiceDetailPage({
   return (
     <>
       <section className="relative isolate overflow-hidden">
-        <AuroraField intensity="soft" />
-        <div aria-hidden="true" className="absolute inset-0 bg-background/55" />
+        <AuroraField intensity="bright" />
+        <div aria-hidden="true" className="absolute inset-0 bg-background/25" />
         <div
           aria-hidden="true"
           className="scanlines absolute inset-0 opacity-15"
@@ -58,9 +58,9 @@ export default async function ServiceDetailPage({
             ]}
           />
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
             <span className="index-tag">[{code}]</span>
-            <span aria-hidden="true" className="h-px w-10 bg-border-strong" />
+            <span aria-hidden="true" className="hidden h-px w-10 bg-border-strong sm:block" />
             <span className="mono-label">
               Service {String(index + 1).padStart(2, "0")} of{" "}
               {String(services.length).padStart(2, "0")}
@@ -83,11 +83,12 @@ export default async function ServiceDetailPage({
 
       <ScanDivider code={code} />
 
-      <section className="py-20 sm:py-24">
+      {/* ------------------------------------------------ Approach — bright */}
+      <section className="on-paper py-20 sm:py-24">
         <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
           <Reveal>
-            <div className="flex items-center gap-3">
-              <span aria-hidden="true" className="h-px w-8 bg-signal" />
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+              <span aria-hidden="true" className="hidden h-px w-8 bg-signal sm:block" />
               <span className="mono-label">Approach</span>
             </div>
             <h2 className="display mt-5 text-3xl text-foreground sm:text-4xl">
@@ -121,12 +122,13 @@ export default async function ServiceDetailPage({
         </Container>
       </section>
 
-      <section className="border-t border-border py-20">
+      {/* --------------------------------- Other capabilities — bright, warm */}
+      <section className="on-paper on-paper--warm border-t border-border py-20">
         <Container>
           <Reveal>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
               <span className="index-tag">[SB.02]</span>
-              <span aria-hidden="true" className="h-px w-8 bg-border-strong" />
+              <span aria-hidden="true" className="hidden h-px w-8 bg-border-strong sm:block" />
               <span className="mono-label">Other capabilities</span>
             </div>
           </Reveal>
@@ -154,9 +156,12 @@ export default async function ServiceDetailPage({
         </Container>
       </section>
 
-      <section className="relative isolate overflow-hidden border-t border-border py-28 sm:py-32">
-        <AuroraField intensity="faint" />
-        <div aria-hidden="true" className="absolute inset-0 bg-background/50" />
+      {/* --------------------------------------------- Outro — ember flood */}
+      <section className="on-ember relative isolate overflow-hidden py-28 sm:py-32">
+        <div
+          aria-hidden="true"
+          className="scanlines absolute inset-0 opacity-20"
+        />
 
         <Container className="relative z-10 flex flex-col items-center gap-7 text-center">
           <Reveal className="flex flex-col items-center gap-7">

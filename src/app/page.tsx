@@ -99,26 +99,34 @@ export default function Home() {
           preload
         />
 
-        {/* Clear at the top so the photograph actually reads, solid at the
-            bottom where the headline and CTAs sit. */}
+        {/* The text block occupies the bottom 70% of the hero, so the scrim
+            holds a near-solid floor to exactly that height and then clears hard
+            — the top ~25% is close to bare photograph, where the old grade was
+            a murky 0.3–0.5 the whole way up and the harbour never read at all.
+            The floor is not a guess: the harbour reaches luminance 0.77 behind
+            the headline, and 11px mono labels sit two-thirds up the hero, so
+            0.93 there is the minimum that keeps every element over its
+            threshold against the brightest pixel it crosses. Measured per
+            element — see the ramp stops against public/__hero.js reasoning in
+            the PR. Do not lighten these stops without re-measuring. */}
         <div
           aria-hidden="true"
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "linear-gradient(to top, rgba(10,11,13,0.97) 0%, rgba(10,11,13,0.93) 34%, rgba(10,11,13,0.62) 62%, rgba(10,11,13,0.28) 100%)",
+              "linear-gradient(to top, rgba(10,11,13,0.96) 0%, rgba(10,11,13,0.95) 50%, rgba(10,11,13,0.93) 70%, rgba(10,11,13,0.26) 80%, rgba(10,11,13,0.04) 100%)",
           }}
         />
-        <AuroraField intensity="soft" />
+        <AuroraField intensity="bright" />
         <div
           aria-hidden="true"
           className="scanlines absolute inset-0 opacity-15"
         />
 
         <Container className="relative z-10 pb-16 pt-32 sm:pb-20 sm:pt-36">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
             <span className="index-tag">[SB.01]</span>
-            <span aria-hidden="true" className="h-px w-10 bg-border-strong" />
+            <span aria-hidden="true" className="hidden h-px w-10 bg-border-strong sm:block" />
             <span className="mono-label">Full-service marketing agency</span>
           </div>
 
@@ -147,10 +155,10 @@ export default function Home() {
 
       <ScanDivider code="Signal acquired / Sydney, AU" />
 
-      {/* -------------------------------------------------------- Capabilities */}
-      <section className="relative isolate overflow-hidden py-24 sm:py-32">
-        <AuroraField intensity="faint" />
-
+      {/* ------------------------------------------- Capabilities — bright */}
+      {/* First hard cut from the dark hero into a full cream surface. Flat by
+          design: no aurora, no scrim, nothing between the cream and the type. */}
+      <section className="on-paper relative isolate overflow-hidden py-24 sm:py-32">
         <Container className="relative z-10">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <SectionHeading
@@ -167,7 +175,7 @@ export default function Home() {
             <Reveal delay={120}>
               <Link
                 href="/services"
-                className="mono-label inline-flex items-center gap-2 text-signal transition-colors hover:text-signal-soft"
+                className="mono-label inline-flex tap-target items-center gap-2 text-signal transition-colors hover:text-signal-soft"
               >
                 All services <span aria-hidden="true">→</span>
               </Link>
@@ -222,8 +230,10 @@ export default function Home() {
         }
       />
 
-      {/* -------------------------------------------------------- Field records */}
-      <section className="relative isolate overflow-hidden border-t border-border py-24 sm:py-32">
+      {/* --------------------------------------- Field records — bright */}
+      {/* The specimen photographs are daylight shots; on cream at close to
+          natural exposure they carry the brightest block on the page. */}
+      <section className="on-paper on-paper--warm relative isolate overflow-hidden py-24 sm:py-32">
         <Container className="relative z-10">
           <SectionHeading
             index="SB.04"
@@ -252,7 +262,7 @@ export default function Home() {
 
       {/* ----------------------------------------------- Operating principles */}
       <section className="relative isolate overflow-hidden py-24 sm:py-32">
-        <AuroraField intensity="faint" />
+        <AuroraField intensity="soft" />
 
         <Container className="relative z-10">
           <SectionHeading
@@ -281,12 +291,13 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ---------------------------------------------------------------- Outro */}
-      <section className="relative isolate overflow-hidden border-t border-border py-28 sm:py-36">
-        <AuroraField intensity="soft" />
+      {/* --------------------------------------------- Outro — ember flood */}
+      {/* Closing CTA as a full accent flood. Same treatment on every page, so
+          the last thing a visitor scrolls into is always the brightest. */}
+      <section className="on-ember relative isolate overflow-hidden py-28 sm:py-36">
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-background/55"
+          className="scanlines absolute inset-0 opacity-20"
         />
 
         <Container className="relative z-10 flex flex-col items-center gap-7 text-center">

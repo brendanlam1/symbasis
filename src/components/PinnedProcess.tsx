@@ -46,9 +46,11 @@ export function PinnedProcess({
   const readoutRef = useRef<HTMLSpanElement>(null);
   const [active, setActive] = useState(0);
   const prefersReducedMotion = useReducedMotion();
-  // Four stacked steps do not fit inside a pinned `h-screen` panel on a phone,
-  // so narrow viewports get the plain static layout too.
-  const isNarrow = useMediaQuery("(max-width: 639px)");
+  // Four steps plus the headline do not fit inside a pinned `h-screen` panel
+  // until there is room for the 4-across step row, and a 280vh pinned scroll
+  // on a touch viewport reads as the page having stopped responding. Phones and
+  // tablets both get the plain stacked layout; pinning starts at `lg`.
+  const isNarrow = useMediaQuery("(max-width: 1023px)");
   const reduced = prefersReducedMotion || isNarrow;
 
   useEffect(() => {
@@ -77,7 +79,7 @@ export function PinnedProcess({
         imageRef.current.style.transform = `scale(${(1.14 - progress * 0.14).toFixed(4)})`;
       }
       if (scrimRef.current) {
-        scrimRef.current.style.opacity = (0.55 - progress * 0.22).toFixed(3);
+        scrimRef.current.style.opacity = (0.34 - progress * 0.14).toFixed(3);
       }
       if (readoutRef.current) {
         readoutRef.current.textContent = String(
@@ -142,24 +144,33 @@ export function PinnedProcess({
           ref={scrimRef}
           aria-hidden="true"
           className="absolute inset-0 bg-background"
-          style={{ opacity: 0.55 }}
+          style={{ opacity: 0.34 }}
         />
-        {/* Solid behind the copy on the left, clearing toward the right so the
-            photograph stays visible while the panel is pinned. */}
+        {/* Diagonal, not horizontal. The four steps run edge to edge along the
+            bottom, so a left-to-right ramp left step 04 sitting on the bare
+            sunlit Opera House sails — measured at 1.6:1. Clearing toward the
+            top *right* instead is the one corner with no text in it, so the
+            photograph still reads at its own exposure there while every step
+            keeps ~0.80 of cover. Stacked, the copy spans the full width and
+            there is no clear corner to give away. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-linear-to-r from-background via-background/75 to-background/10"
+          className={
+            reduced
+              ? "absolute inset-0 bg-linear-to-r from-background via-background/92 to-background/85"
+              : "absolute inset-0 bg-linear-to-tr from-background via-background/88 to-transparent"
+          }
         />
-        <AuroraField intensity="faint" />
+        <AuroraField intensity="soft" />
         <div
           aria-hidden="true"
           className="scanlines absolute inset-0 opacity-20"
         />
 
         <Container className="relative z-10 w-full">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
             <span className="index-tag">[{index}]</span>
-            <span aria-hidden="true" className="h-px w-8 bg-border-strong" />
+            <span aria-hidden="true" className="hidden h-px w-8 bg-border-strong sm:block" />
             <span className="mono-label">{eyebrow}</span>
           </div>
 
@@ -204,7 +215,7 @@ export function PinnedProcess({
         {!reduced && (
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 hidden border-t border-border bg-background/50 backdrop-blur-sm sm:block"
+            className="absolute inset-x-0 bottom-0 border-t border-border bg-background/50 backdrop-blur-sm"
           >
             <Container className="flex items-center justify-between py-3">
               <span className="mono-label">

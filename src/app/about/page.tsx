@@ -41,8 +41,10 @@ export default function AboutPage() {
   return (
     <>
       <section className="relative isolate overflow-hidden">
-        <AuroraField intensity="soft" />
-        <div aria-hidden="true" className="absolute inset-0 bg-background/55" />
+        <AuroraField intensity="bright" />
+        {/* Thin enough to let the aurora glow through — it used to sit at 55%,
+            which flattened the colour field into a dark tint. */}
+        <div aria-hidden="true" className="absolute inset-0 bg-background/25" />
         <div
           aria-hidden="true"
           className="scanlines absolute inset-0 opacity-15"
@@ -50,9 +52,9 @@ export default function AboutPage() {
 
         <Container className="relative z-10 grid grid-cols-1 items-center gap-14 py-20 sm:py-28 lg:grid-cols-[1.25fr_1fr]">
           <div className="flex flex-col gap-7">
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
               <span className="index-tag">[SB.06]</span>
-              <span aria-hidden="true" className="h-px w-10 bg-border-strong" />
+              <span aria-hidden="true" className="hidden h-px w-10 bg-border-strong sm:block" />
               <span className="mono-label">About Symbasis</span>
             </div>
 
@@ -87,15 +89,11 @@ export default function AboutPage() {
               />
               <div
                 aria-hidden="true"
-                className="scanlines absolute inset-0 opacity-25"
+                className="scanlines absolute inset-0 opacity-20"
               />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-linear-to-t from-background/80 via-background/10 to-background/25"
-              />
-              <span className="absolute left-3 top-3 border border-border-strong bg-background/70 px-2 py-1 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-foreground/80 backdrop-blur-sm">
-                SYD.001
-              </span>
+              {/* No scrim: nothing but the self-contrasting catalog chip sits on
+                  this image, so the pale sky stays pale. */}
+              <span className="catalog-chip">SYD.001</span>
             </div>
             <figcaption className="mono-label text-foreground/70">
               Bennelong Point / Sydney, AU
@@ -106,8 +104,9 @@ export default function AboutPage() {
 
       <ScanDivider code="Operating beliefs" />
 
-      <section className="relative isolate overflow-hidden py-24 sm:py-32">
-        <AuroraField intensity="faint" />
+      {/* ------------------------------------------------ Beliefs — bright */}
+      {/* Flat cream, like every bright section: the aurora only glows on dark. */}
+      <section className="on-paper relative isolate overflow-hidden py-24 sm:py-32">
 
         <Container className="relative z-10">
           <SectionHeading
@@ -140,9 +139,9 @@ export default function AboutPage() {
         <Container>
           <Reveal className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-start lg:gap-16">
             <div className="flex flex-col gap-5">
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
                 <span className="index-tag">[SB.08]</span>
-                <span aria-hidden="true" className="h-px w-8 bg-border-strong" />
+                <span aria-hidden="true" className="hidden h-px w-8 bg-border-strong sm:block" />
                 <span className="mono-label">The team</span>
               </div>
               <h2 className="display text-3xl text-foreground sm:text-4xl">
@@ -161,9 +160,12 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="relative isolate overflow-hidden border-t border-border py-28 sm:py-32">
-        <AuroraField intensity="soft" />
-        <div aria-hidden="true" className="absolute inset-0 bg-background/55" />
+      {/* --------------------------------------------- Outro — ember flood */}
+      <section className="on-ember relative isolate overflow-hidden py-28 sm:py-32">
+        <div
+          aria-hidden="true"
+          className="scanlines absolute inset-0 opacity-20"
+        />
 
         <Container className="relative z-10 flex flex-col items-center gap-7 text-center">
           <Reveal className="flex flex-col items-center gap-7">

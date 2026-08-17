@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <section className="relative isolate overflow-hidden py-20 sm:py-28">
-      <AuroraField intensity="soft" />
-      <div aria-hidden="true" className="absolute inset-0 bg-background/60" />
+      <AuroraField intensity="bright" />
+      <div aria-hidden="true" className="absolute inset-0 bg-background/25" />
       <div
         aria-hidden="true"
         className="scanlines absolute inset-0 opacity-15"
@@ -24,9 +24,9 @@ export default function ContactPage() {
 
       <Container className="relative z-10 grid grid-cols-1 gap-14 lg:grid-cols-[1fr_1.25fr] lg:gap-20">
         <div className="flex flex-col gap-7">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
             <span className="index-tag">[SB.09]</span>
-            <span aria-hidden="true" className="h-px w-10 bg-border-strong" />
+            <span aria-hidden="true" className="hidden h-px w-10 bg-border-strong sm:block" />
             <span className="mono-label">Contact</span>
           </div>
 
@@ -47,7 +47,7 @@ export default function ContactPage() {
               <dd className="mt-2">
                 <a
                   href="mailto:hello@symbasis.com.au"
-                  className="text-base text-foreground transition-colors hover:text-signal"
+                  className="inline-flex tap-target items-center text-base text-foreground transition-colors hover:text-signal"
                 >
                   hello@symbasis.com.au
                 </a>
@@ -74,15 +74,9 @@ export default function ContactPage() {
               />
               <div
                 aria-hidden="true"
-                className="scanlines absolute inset-0 opacity-25"
+                className="scanlines absolute inset-0 opacity-20"
               />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-linear-to-t from-background/80 via-background/10 to-background/25"
-              />
-              <span className="absolute left-3 top-3 border border-border-strong bg-background/70 px-2 py-1 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-foreground/80 backdrop-blur-sm">
-                SYD.002
-              </span>
+              <span className="catalog-chip">SYD.002</span>
             </div>
             <figcaption className="mono-label text-foreground/70">
               Bondi / Sydney, AU
@@ -90,9 +84,12 @@ export default function ContactPage() {
           </figure>
         </div>
 
+        {/* The form is the bright panel on this page: a near-white translucent
+            card lifted off the dark canvas, with full-brightness content on it
+            rather than another dark-on-dark surface. */}
         <Reveal>
-          <div className="border border-border bg-surface/70 backdrop-blur-sm">
-            <div className="flex items-center justify-between gap-4 border-b border-border px-6 py-4 sm:px-10">
+          <div className="on-paper border border-border-strong bg-background/92 shadow-2xl shadow-black/40 backdrop-blur-md">
+            <div className="flex flex-col gap-1 border-b border-border px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-10">
               <span className="mono-label text-foreground/70">
                 Project enquiry
               </span>

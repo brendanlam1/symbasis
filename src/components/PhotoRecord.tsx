@@ -11,8 +11,12 @@ export type PhotoRecordItem = {
 
 /**
  * A photograph treated like an archival specimen: hairline frame, monospace
- * catalog code, short caption. Desaturated to sit in the dark palette, and it
- * resolves to full colour on hover.
+ * catalog code, short caption.
+ *
+ * No scrim over the image: the caption lives outside the frame and the catalog
+ * chip carries its own dark glass, so nothing needs the photo darkened to stay
+ * legible. The daylight exposure is the point — these frames are what makes the
+ * bright sections bright.
  */
 export function PhotoRecord({ item }: { item: PhotoRecordItem }) {
   return (
@@ -29,16 +33,10 @@ export function PhotoRecord({ item }: { item: PhotoRecordItem }) {
 
         <div
           aria-hidden="true"
-          className="scanlines absolute inset-0 opacity-30"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-linear-to-t from-background/80 via-background/10 to-background/25"
+          className="scanlines absolute inset-0 opacity-20"
         />
 
-        <span className="absolute left-3 top-3 border border-border-strong bg-background/70 px-2 py-1 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-foreground/80 backdrop-blur-sm">
-          {item.code}
-        </span>
+        <span className="catalog-chip">{item.code}</span>
       </div>
 
       <figcaption className="flex flex-col gap-1.5">

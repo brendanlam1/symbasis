@@ -2,8 +2,14 @@
 
 /* ==========================================================================
    Symbasis design system — "Signal / Sydney"
-   Dark cinematic canvas, drifting aurora colour fields, monospace technical
-   annotation, catalog-stamped photography.
+   Hard-alternating dark and bright surfaces, luminous aurora colour fields,
+   monospace technical annotation, catalog-stamped photography.
+
+   Surfaces are token *contexts*, not one-off colours. Every utility resolves
+   `var(--foreground)`, `var(--background)`, `var(--signal)` and friends at the
+   point of use, so wrapping a section in `.on-paper` or `.on-ember` re-tones
+   everything inside it — text, hairlines, accents, scrims — with no per-element
+   rewriting. Add a surface context, never a hard-coded light colour.
    ========================================================================== */
 
 :root {
@@ -15,7 +21,10 @@
   /* Ink */
   --foreground: #edeae3;
   --muted: #9a9ea7;
-  --faint: #7c828d;
+  /* Lightened from #7c828d (4.87:1) to 5.94:1 on the canvas. The mono
+     annotations were the least legible text on the site and had no headroom
+     left for sitting over a photograph. */
+  --faint: #8b919c;
 
   /* Hairlines */
   --border: rgba(237, 234, 227, 0.11);
@@ -28,6 +37,86 @@
   --acid: #d6d152;
 
   --on-accent: #0a0b0d;
+
+  /* Aurora glow hues, deliberately NOT the accent tokens above: the blobs must
+     stay vivid on every surface, so they never get re-toned by a context. */
+  --glow-signal: #ff7a3d;
+  --glow-tide: #4f9fd4;
+  --glow-acid: #f5e35c;
+}
+
+/* --------------------------------------------------------------------------
+   Surface context: paper — warm off-white, dark ink
+   The bright half of the site. Every pairing below is >= 4.5:1 on --background
+   (5.6:1 muted, 4.7:1 faint, 4.7:1 signal), so body copy stays legible.
+   -------------------------------------------------------------------------- */
+
+.on-paper {
+  --background: #f7f2e9;
+  --surface: #efe8dc;
+  --surface-2: #e6ddce;
+
+  --foreground: #14161a;
+  --muted: #5a616b;
+  --faint: #656c76;
+
+  --border: rgba(20, 22, 26, 0.14);
+  --border-strong: rgba(20, 22, 26, 0.28);
+
+  /* Ember and harbour darkened until they carry small text on cream. */
+  --signal: #b74a1c;
+  --signal-soft: #8f3712;
+  --tide: #2f6288;
+  --acid: #8a8419;
+
+  /* Ember is dark here, so accent buttons flip to cream text. */
+  --on-accent: #fdfbf7;
+
+  color-scheme: light;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* One tonal step deeper, for a second bright section sitting next to the first.
+   The ink steps down with it: on the base cream `--faint` and `--signal` clear
+   4.5:1 by a hair, and dropping the surface alone pushed the 11px mono labels
+   to 4.36:1. Re-measured here at 4.98:1 faint / 4.83:1 signal / 5.63:1 muted. */
+.on-paper--warm {
+  --background: #efe8dc;
+  --surface: #e6ddce;
+  --surface-2: #ddd2c0;
+
+  --muted: #545b65;
+  --faint: #5c636d;
+  --signal: #ab4419;
+}
+
+/* --------------------------------------------------------------------------
+   Surface context: ember — saturated accent flood, used for closing CTAs
+   Deep enough that cream copy clears 5:1 on it.
+   -------------------------------------------------------------------------- */
+
+.on-ember {
+  --background: #b04616;
+  --surface: #9d3e12;
+  --surface-2: #8b360f;
+
+  --foreground: #fdf8f1;
+  --muted: #f9eee4;
+  --faint: #f4e4d8;
+
+  --border: rgba(253, 248, 241, 0.28);
+  --border-strong: rgba(253, 248, 241, 0.45);
+
+  /* No room for a second accent on an accent flood: it all goes cream, and
+     accent buttons invert to cream-on-ember. */
+  --signal: #fdf8f1;
+  --signal-soft: #ffffff;
+  --on-accent: #a8410f;
+
+  color-scheme: dark;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 @theme inline {
@@ -119,14 +208,18 @@ body {
 /* No `mix-blend-mode: screen` here either — over a near-black canvas normal
    compositing looks all but identical, and blending would drop the composited
    photo layers underneath out of the backdrop group (see `.grain`). */
+/* Blur is tight enough (80px) to keep each blob's core reading as a light
+   source; much more and it flattens into an even tint. */
 .aurora__blob {
   position: absolute;
   display: block;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(80px);
   will-change: transform;
 }
 
+/* Cores are close to full-strength glow hue and fall off late, so each blob
+   reads as a light source rather than a flat wash of tint. */
 .aurora__blob--signal {
   width: 46vw;
   height: 42vw;
@@ -136,8 +229,9 @@ body {
   left: -4%;
   background: radial-gradient(
     circle at 50% 50%,
-    color-mix(in srgb, var(--signal) 52%, transparent),
-    transparent 68%
+    color-mix(in srgb, var(--glow-signal) 88%, transparent),
+    color-mix(in srgb, var(--glow-signal) 34%, transparent) 46%,
+    transparent 72%
   );
   animation: drift-a 34s ease-in-out infinite;
 }
@@ -151,8 +245,9 @@ body {
   right: -10%;
   background: radial-gradient(
     circle at 50% 50%,
-    color-mix(in srgb, var(--tide) 58%, transparent),
-    transparent 68%
+    color-mix(in srgb, var(--glow-tide) 90%, transparent),
+    color-mix(in srgb, var(--glow-tide) 36%, transparent) 46%,
+    transparent 72%
   );
   animation: drift-b 41s ease-in-out infinite;
 }
@@ -166,18 +261,32 @@ body {
   left: 32%;
   background: radial-gradient(
     circle at 50% 50%,
-    color-mix(in srgb, var(--acid) 30%, transparent),
-    transparent 68%
+    color-mix(in srgb, var(--glow-acid) 74%, transparent),
+    color-mix(in srgb, var(--glow-acid) 26%, transparent) 46%,
+    transparent 72%
   );
   animation: drift-c 47s ease-in-out infinite;
 }
 
+.aurora--bright .aurora__blob {
+  opacity: 0.92;
+}
+
 .aurora--soft .aurora__blob {
-  opacity: 0.5;
+  opacity: 0.72;
 }
 
 .aurora--faint .aurora__blob {
-  opacity: 0.28;
+  opacity: 0.44;
+}
+
+/* The aurora is a light source, so it belongs on the dark surfaces where it
+   reads as one. Composited onto cream the same blobs *darken* and desaturate it
+   toward grey — the exact opposite of the intent — so bright sections stay flat
+   and get their brightness from the surface itself. Clamped rather than removed
+   in case a paper section ever wants the faintest warm hint. */
+.on-paper .aurora__blob {
+  opacity: 0.1;
 }
 
 @keyframes drift-a {
@@ -241,6 +350,15 @@ body {
   );
 }
 
+/* Light lines vanish on cream, so the scan texture inverts to dark hairlines. */
+.on-paper .scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 2px,
+    rgba(20, 22, 26, 0.05) 2px 3px
+  );
+}
+
 /* Degraded-signal divider: a transition device between sections only. */
 .scan-sweep::after {
   content: "";
@@ -289,22 +407,67 @@ body {
    Photography: archival specimen treatment
    -------------------------------------------------------------------------- */
 
+/* These are bright daylight photographs — Opera House sails against blue sky,
+   the Bondi pool, a sunny CBD street — and they are graded to read close to
+   their natural exposure. The specimen frames sit on cream surfaces where a
+   darkened photo would look like a hole in the page, so the only grading left
+   is a whisper of contrast; hover resolves to fully untouched. */
 .photo-treated img {
-  filter: saturate(0.7) contrast(1.08) brightness(0.82);
+  filter: saturate(1.02) contrast(1.02) brightness(1);
   transition: filter 0.9s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Full-bleed backdrops carry text on top, so they get a lighter grade than
-   the specimen frames — the scrim above them does the contrast work. */
+/* Full-bleed backdrops carry text on top, but the scrim above them does the
+   contrast work — the photograph itself is left at full brightness. */
 .photo-hero img {
-  filter: saturate(0.86) contrast(1.04) brightness(0.96);
+  filter: saturate(1.06) contrast(1.02) brightness(1.03);
 }
 
 .photo-record:hover .photo-treated img,
 .photo-record:focus-visible .photo-treated img {
-  filter: saturate(1) contrast(1) brightness(1);
+  filter: none;
   transform: scale(1.03);
+}
+
+/* --------------------------------------------------------------------------
+   Catalog code chip
+   Sits directly on a photograph, so it carries its own fixed dark glass rather
+   than inheriting the surface context: on a cream section an inherited light
+   chip would drop to ~2:1 over a bright sky. Worst case here (chip over pure
+   white) is 6.9:1.
+   -------------------------------------------------------------------------- */
+
+.catalog-chip {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  border: 1px solid rgba(237, 234, 227, 0.34);
+  background: rgba(10, 11, 13, 0.72);
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #edeae3;
+  backdrop-filter: blur(4px);
+}
+
+/* --------------------------------------------------------------------------
+   Touch targets
+   Tight inline links (footer columns, breadcrumbs, inline mono links) are set
+   by type at 13–18px tall. On a touch device they need ~44px.
+
+   Keyed to pointer type, not a width breakpoint: an iPad in portrait is
+   exactly 768px wide, so a `md:` gate switched the targets back off on the
+   one device that most needs them. The element keeps its own display/
+   alignment classes; only the height floor is conditional.
+   -------------------------------------------------------------------------- */
+
+@media (pointer: coarse) {
+  .tap-target {
+    min-height: 2.75rem;
+  }
 }
 
 /* --------------------------------------------------------------------------
